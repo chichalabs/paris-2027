@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Paris 2027 — Budget</title>
+<style>
+:root{
+  --paper:#E8ECF2; --surface:#FBFCFE; --ink:#16233A; --ink-soft:#56647B; --ink-faint:#8C9AAD;
+  --hair:#CCD6E2; --land-2:#E4EAF1; --good:#0F7059; --care:#9C6C15;
+  --shadow:0 1px 2px rgba(22,35,58,.05), 0 10px 26px -14px rgba(22,35,58,.28);
+  --serif:ui-serif,"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#0E1621; --surface:#161F2B; --ink:#E2E9F3; --ink-soft:#93A2B7; --ink-faint:#6C7C91;
+  --hair:#293546; --land-2:#222D3C; --good:#3FBA9C; --care:#D6A344;
+  --shadow:0 1px 2px rgba(0,0,0,.45), 0 12px 30px -16px rgba(0,0,0,.8);}}
+:root[data-theme="dark"]{
+  --paper:#0E1621; --surface:#161F2B; --ink:#E2E9F3; --ink-soft:#93A2B7; --ink-faint:#6C7C91;
+  --hair:#293546; --land-2:#222D3C; --good:#3FBA9C; --care:#D6A344;
+  --shadow:0 1px 2px rgba(0,0,0,.45), 0 12px 30px -16px rgba(0,0,0,.8);}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans)}
+.wrap{max-width:1040px;margin:0 auto;padding:32px 20px 80px}
+h1{font-family:var(--serif);font-size:clamp(26px,4vw,36px);margin:.2em 0 .2em}
+.dek{color:var(--ink-soft);max-width:60ch;margin:0 0 26px;line-height:1.5}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin:0 0 30px}
+.card{background:var(--surface);border:1px solid var(--hair);border-radius:12px;padding:16px 18px;box-shadow:var(--shadow)}
+.card .lbl{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-faint)}
+.card .val{font-family:var(--serif);font-size:24px;margin-top:6px}
+.card .sub{font-size:13px;color:var(--ink-soft);margin-top:4px}
+.tablebox{background:var(--surface);border:1px solid var(--hair);border-radius:12px;box-shadow:var(--shadow);overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:14px;min-width:720px}
+th{font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-faint);
+  text-align:left;padding:12px 12px;border-bottom:1px solid var(--hair)}
+td{padding:9px 12px;border-bottom:1px solid var(--hair);vertical-align:top;line-height:1.45}
+tr:last-child td{border-bottom:none}
+td.num,th.num{text-align:right;font-family:var(--mono);font-size:13px;white-space:nowrap}
+tr.cat td{background:var(--land-2);font-weight:600;font-family:var(--serif);font-size:15px}
+.note{font-size:12.5px;color:var(--ink-soft);margin-top:2px;max-width:46ch}
+.conf{font-size:11.5px;padding:2px 8px;border-radius:99px;border:1px solid var(--hair);color:var(--ink-soft);white-space:nowrap}
+.conf.verified{color:var(--good);border-color:currentColor}
+.foot{color:var(--ink-faint);font-size:13px;margin-top:18px;line-height:1.5}
+</style>
+</head>
+<body>
+
+<style>
+.site-nav{position:sticky;top:0;z-index:9999;display:flex;align-items:center;gap:2px;
+  padding:0 14px;height:52px;overflow-x:auto;-webkit-overflow-scrolling:touch;
+  background:var(--surface,#FBFCFE);border-bottom:1px solid var(--hair,#CCD6E2);
+  font-family:var(--sans,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif);
+  box-shadow:0 1px 2px rgba(22,35,58,.06)}
+.site-nav .brand{font-family:var(--serif,Georgia,serif);font-size:17px;font-weight:700;
+  color:var(--ink,#16233A);margin-right:14px;white-space:nowrap;text-decoration:none}
+.site-nav a.nav-item{color:var(--ink-soft,#56647B);text-decoration:none;font-size:14px;
+  padding:6px 11px;border-radius:8px;white-space:nowrap;line-height:1}
+.site-nav a.nav-item:hover{color:var(--ink,#16233A);background:var(--land-2,#E3E9F1)}
+.site-nav a.nav-item.active{color:var(--ink,#16233A);font-weight:600;
+  background:var(--land-2,#E3E9F1)}
+</style>
+<nav class="site-nav"><a class="brand" href="index.html">Paris 2027</a><a class="nav-item" href="index.html">Home</a><a class="nav-item" href="map.html">Map</a><a class="nav-item" href="streets.html">Streets</a><a class="nav-item" href="neighbourhoods.html">Neighbourhoods</a><a class="nav-item active" href="budget.html">Budget</a></nav>
+
+<div class="wrap">
+<h1>Budget</h1>
+<p class="dek">Planning estimates for two people, 8 nights, 13–21 April 2027. Quoted in original currency, converted to tenge at €1 = 539.52 ₸ and $1 = 467.48 ₸ (NBK, 7 Aug 2026).</p>
+
+<div class="cards">
+  <div class="card"><div class="lbl">Grand total, 2 people</div><div class="val">2 199 167 ₸</div><div class="sub">≈ €4,076 · incl. 10% contingency</div></div>
+  <div class="card"><div class="lbl">Per person</div><div class="val">1 099 583 ₸</div><div class="sub">≈ €2,038</div></div>
+  <div class="card"><div class="lbl">Subtotal before contingency</div><div class="val">1 999 243 ₸</div><div class="sub">contingency 199 924 ₸</div></div>
+  <div class="card"><div class="lbl">Trip</div><div class="val">13 – 21 Apr 2027</div><div class="sub">8 nights · 2 travellers · Tue → Wed</div></div>
+</div>
+<div class="tablebox">
+<table>
+<thead><tr><th>Item</th><th class="num">Qty</th><th class="num">Unit</th><th>Ccy</th><th class="num">Total</th><th>Confidence</th><th class="num">Total ₸</th></tr></thead>
+<tbody>
+<tr class="cat"><td colspan="6">Flights</td><td class="num">478 270 ₸</td></tr>
+<tr><td>Flight Almaty → Paris (Pegasus Saver, 20kg incl)<div class="note">March board showed $218–313 one-way. April goes on sale ~Sep–Dec 2026 — watch for the launch sale.</div></td><td class="num">2</td><td class="num">250</td><td>USD</td><td class="num">$500</td><td><span class="conf estimate">Estimate</span></td><td class="num">233 740 ₸</td></tr>
+<tr><td>Flight Paris → Almaty (Pegasus Saver, from Orly)<div class="note">€230–270 incl 20kg. Must depart Orly — Pegasus has no CDG service in spring.</div></td><td class="num">2</td><td class="num">250</td><td>USD</td><td class="num">$500</td><td><span class="conf estimate">Estimate</span></td><td class="num">233 740 ₸</td></tr>
+<tr><td>Seat selection (optional)<div class="note">Skip to save money.</div></td><td class="num">2</td><td class="num">10</td><td>EUR</td><td class="num">€20</td><td><span class="conf estimate">Estimate</span></td><td class="num">10 790 ₸</td></tr>
+<tr><td>Extra checked bag — ONLY if you buy a Light fare<div class="note">Light fare = 3kg underseat only. Qty 2 if you end up on Light.</div></td><td class="num">0</td><td class="num">40</td><td>EUR</td><td class="num">€0</td><td><span class="conf verified">Verified</span></td><td class="num">0 ₸</td></tr>
+<tr class="cat"><td colspan="6">Visa &amp; docs</td><td class="num">162 461 ₸</td></tr>
+<tr><td>Schengen visa fee<div class="note">Verify current fee before applying.</div></td><td class="num">2</td><td class="num">90</td><td>EUR</td><td class="num">€180</td><td><span class="conf estimate">Estimate</span></td><td class="num">97 114 ₸</td></tr>
+<tr><td>Visa centre service fee</td><td class="num">2</td><td class="num">30</td><td>EUR</td><td class="num">€60</td><td><span class="conf estimate">Estimate</span></td><td class="num">32 371 ₸</td></tr>
+<tr><td>Travel insurance (Schengen-compliant)<div class="note">Mandatory for the visa: €30,000 medical cover minimum.</div></td><td class="num">2</td><td class="num">25</td><td>EUR</td><td class="num">€50</td><td><span class="conf estimate">Estimate</span></td><td class="num">26 976 ₸</td></tr>
+<tr><td>Photos, translations, bank statements</td><td class="num">2</td><td class="num">3000</td><td>KZT</td><td class="num">₸6,000</td><td><span class="conf estimate">Estimate</span></td><td class="num">6 000 ₸</td></tr>
+<tr class="cat"><td colspan="6">Accommodation</td><td class="num">526 572 ₸</td></tr>
+<tr><td>Apartment / aparthotel — 8 nights<div class="note">€90–140/night for a studio in the 11th/12th. Book a refundable rate early.</div></td><td class="num">8</td><td class="num">115</td><td>EUR</td><td class="num">€920</td><td><span class="conf estimate">Estimate</span></td><td class="num">496 358 ₸</td></tr>
+<tr><td>Taxe de séjour<div class="note">Per person per night, usually charged at checkout.</div></td><td class="num">16</td><td class="num">3.5</td><td>EUR</td><td class="num">€56</td><td><span class="conf estimate">Estimate</span></td><td class="num">30 213 ₸</td></tr>
+<tr class="cat"><td colspan="6">Transport</td><td class="num">67 980 ₸</td></tr>
+<tr><td>Airport → city on arrival</td><td class="num">2</td><td class="num">14</td><td>EUR</td><td class="num">€28</td><td><span class="conf estimate">Estimate</span></td><td class="num">15 107 ₸</td></tr>
+<tr><td>City → airport on departure</td><td class="num">2</td><td class="num">14</td><td>EUR</td><td class="num">€28</td><td><span class="conf estimate">Estimate</span></td><td class="num">15 107 ₸</td></tr>
+<tr><td>Metro passes / Navigo<div class="note">Verify current weekly Navigo rate.</div></td><td class="num">2</td><td class="num">35</td><td>EUR</td><td class="num">€70</td><td><span class="conf estimate">Estimate</span></td><td class="num">37 766 ₸</td></tr>
+<tr class="cat"><td colspan="6">Food</td><td class="num">504 991 ₸</td></tr>
+<tr><td>Groceries &amp; breakfast at the apartment<div class="note">The main reason to get a kitchenette. Hotel breakfast is €15–20 each.</div></td><td class="num">8</td><td class="num">15</td><td>EUR</td><td class="num">€120</td><td><span class="conf estimate">Estimate</span></td><td class="num">64 742 ₸</td></tr>
+<tr><td>Lunches (2 people × 8 days)</td><td class="num">16</td><td class="num">15</td><td>EUR</td><td class="num">€240</td><td><span class="conf estimate">Estimate</span></td><td class="num">129 485 ₸</td></tr>
+<tr><td>Dinners (2 people × 8 days)<div class="note">Budget-conscious bistro level. One or two nicer nights will push this up.</div></td><td class="num">16</td><td class="num">27</td><td>EUR</td><td class="num">€432</td><td><span class="conf estimate">Estimate</span></td><td class="num">233 073 ₸</td></tr>
+<tr><td>Coffee, wine, snacks</td><td class="num">8</td><td class="num">18</td><td>EUR</td><td class="num">€144</td><td><span class="conf estimate">Estimate</span></td><td class="num">77 691 ₸</td></tr>
+<tr class="cat"><td colspan="6">Attractions</td><td class="num">156 461 ₸</td></tr>
+<tr><td>Louvre<div class="note">€32 for non-EEA passports since Jan 2026. Kazakh passport pays the higher rate.</div></td><td class="num">2</td><td class="num">32</td><td>EUR</td><td class="num">€64</td><td><span class="conf verified">Verified</span></td><td class="num">34 529 ₸</td></tr>
+<tr><td>Musée d&#x27;Orsay</td><td class="num">2</td><td class="num">16</td><td>EUR</td><td class="num">€32</td><td><span class="conf estimate">Estimate</span></td><td class="num">17 265 ₸</td></tr>
+<tr><td>Eiffel Tower — summit by lift<div class="note">Stairs to 2nd floor is roughly half price.</div></td><td class="num">2</td><td class="num">35</td><td>EUR</td><td class="num">€70</td><td><span class="conf estimate">Estimate</span></td><td class="num">37 766 ₸</td></tr>
+<tr><td>Versailles (palace + gardens)</td><td class="num">2</td><td class="num">32</td><td>EUR</td><td class="num">€64</td><td><span class="conf estimate">Estimate</span></td><td class="num">34 529 ₸</td></tr>
+<tr><td>Sainte-Chapelle</td><td class="num">2</td><td class="num">13</td><td>EUR</td><td class="num">€26</td><td><span class="conf estimate">Estimate</span></td><td class="num">14 028 ₸</td></tr>
+<tr><td>Seine river cruise<div class="note">Cheapest genuinely romantic thing on the list.</div></td><td class="num">2</td><td class="num">17</td><td>EUR</td><td class="num">€34</td><td><span class="conf estimate">Estimate</span></td><td class="num">18 344 ₸</td></tr>
+<tr><td>ALTERNATIVE: Paris Museum Pass 4-day<div class="note">Qty 0 so it does not double-count. Set to 2 and zero the singles if the pass wins.</div></td><td class="num">0</td><td class="num">109</td><td>EUR</td><td class="num">€0</td><td><span class="conf estimate">Estimate</span></td><td class="num">0 ₸</td></tr>
+<tr class="cat"><td colspan="6">Misc</td><td class="num">102 509 ₸</td></tr>
+<tr><td>eSIM / mobile data</td><td class="num">2</td><td class="num">10</td><td>EUR</td><td class="num">€20</td><td><span class="conf estimate">Estimate</span></td><td class="num">10 790 ₸</td></tr>
+<tr><td>Gifts &amp; souvenirs</td><td class="num">1</td><td class="num">120</td><td>EUR</td><td class="num">€120</td><td><span class="conf estimate">Estimate</span></td><td class="num">64 742 ₸</td></tr>
+<tr><td>Pharmacy &amp; incidentals</td><td class="num">1</td><td class="num">50</td><td>EUR</td><td class="num">€50</td><td><span class="conf estimate">Estimate</span></td><td class="num">26 976 ₸</td></tr>
+</tbody>
+</table>
+</div>
+<p class="foot">Source of truth: <span style="font-family:var(--mono)">paris-2027-budget.xlsx</span>. Nothing is booked yet; flight prices are the March-2027 board — April goes on sale autumn 2026. Update exchange rates before finalising.</p>
+</div>
+</body>
+</html>

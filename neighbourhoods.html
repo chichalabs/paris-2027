@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>*{box-sizing:border-box}body{margin:0}img{max-width:100%}</style>
+</head>
+<body>
+
+<style>
+.site-nav{position:sticky;top:0;z-index:9999;display:flex;align-items:center;gap:2px;
+  padding:0 14px;height:52px;overflow-x:auto;-webkit-overflow-scrolling:touch;
+  background:var(--surface,#FBFCFE);border-bottom:1px solid var(--hair,#CCD6E2);
+  font-family:var(--sans,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif);
+  box-shadow:0 1px 2px rgba(22,35,58,.06)}
+.site-nav .brand{font-family:var(--serif,Georgia,serif);font-size:17px;font-weight:700;
+  color:var(--ink,#16233A);margin-right:14px;white-space:nowrap;text-decoration:none}
+.site-nav a.nav-item{color:var(--ink-soft,#56647B);text-decoration:none;font-size:14px;
+  padding:6px 11px;border-radius:8px;white-space:nowrap;line-height:1}
+.site-nav a.nav-item:hover{color:var(--ink,#16233A);background:var(--land-2,#E3E9F1)}
+.site-nav a.nav-item.active{color:var(--ink,#16233A);font-weight:600;
+  background:var(--land-2,#E3E9F1)}
+</style>
+<nav class="site-nav"><a class="brand" href="index.html">Paris 2027</a><a class="nav-item" href="index.html">Home</a><a class="nav-item" href="map.html">Map</a><a class="nav-item" href="streets.html">Streets</a><a class="nav-item active" href="neighbourhoods.html">Neighbourhoods</a><a class="nav-item" href="budget.html">Budget</a></nav>
+
+<title>Paris on a budget - where to stay</title>
+<style>
+:root{
+  --paper:#E8ECF2; --surface:#FBFCFE; --ink:#16233A; --ink-soft:#56647B;
+  --hair:#CCD6E2; --land:#F2F5F9; --land-2:#E4EAF1; --seine:#8CB2CD;
+  --c-best:#0F7059; --c-stretch:#33629C; --c-tower:#9C6C15;
+  --c-pricey:#8B96A7; --c-skip:#9C4632;
+  --shadow:0 1px 2px rgba(22,35,58,.05), 0 10px 26px -14px rgba(22,35,58,.28);
+  --serif:ui-serif,"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --paper:#0E1621; --surface:#18212E; --ink:#E2E9F3; --ink-soft:#93A2B7;
+    --hair:#293546; --land:#1D2734; --land-2:#242F3E; --seine:#3E6C8C;
+    --c-best:#3FBA9C; --c-stretch:#78A6E0; --c-tower:#D6A344;
+    --c-pricey:#778396; --c-skip:#D77A60;
+    --shadow:0 1px 2px rgba(0,0,0,.45), 0 12px 30px -16px rgba(0,0,0,.8);
+  }
+}
+:root[data-theme="light"]{
+  --paper:#E8ECF2; --surface:#FBFCFE; --ink:#16233A; --ink-soft:#56647B;
+  --hair:#CCD6E2; --land:#F2F5F9; --land-2:#E4EAF1; --seine:#8CB2CD;
+  --c-best:#0F7059; --c-stretch:#33629C; --c-tower:#9C6C15;
+  --c-pricey:#8B96A7; --c-skip:#9C4632;
+  --shadow:0 1px 2px rgba(22,35,58,.05), 0 10px 26px -14px rgba(22,35,58,.28);
+}
+:root[data-theme="dark"]{
+  --paper:#0E1621; --surface:#18212E; --ink:#E2E9F3; --ink-soft:#93A2B7;
+  --hair:#293546; --land:#1D2734; --land-2:#242F3E; --seine:#3E6C8C;
+  --c-best:#3FBA9C; --c-stretch:#78A6E0; --c-tower:#D6A344;
+  --c-pricey:#778396; --c-skip:#D77A60;
+  --shadow:0 1px 2px rgba(0,0,0,.45), 0 12px 30px -16px rgba(0,0,0,.8);
+}
+
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:var(--sans); font-size:16px; line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{ max-width:1120px; margin:0 auto; padding:clamp(28px,5vw,64px) clamp(18px,4vw,36px) 72px; }
+
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--ink-soft); margin:0 0 14px;
+}
+h1{
+  font-family:var(--serif); font-weight:600; text-wrap:balance;
+  font-size:clamp(30px,5vw,46px); line-height:1.12; letter-spacing:-.015em;
+  margin:0 0 14px;
+}
+.lede{ max-width:62ch; color:var(--ink-soft); font-size:clamp(16px,1.6vw,18px); margin:0; }
+.lede b{ color:var(--ink); font-weight:600; }
+
+.panel{
+  margin:clamp(28px,4vw,44px) 0 0; background:var(--surface);
+  border:1px solid var(--hair); border-radius:14px; box-shadow:var(--shadow);
+  overflow:hidden;
+}
+.map-scroll{ overflow-x:auto; padding:clamp(10px,2vw,20px); }
+svg.map{ display:block; width:100%; min-width:620px; height:auto; }
+
+.arr{
+  fill:var(--land); stroke:var(--hair); stroke-width:1.1;
+  transition:fill .18s ease, opacity .18s ease;
+}
+.arr.t-best{ fill:var(--c-best); }
+.arr.t-stretch{ fill:var(--c-stretch); }
+.arr.t-tower{ fill:var(--c-tower); }
+.arr.t-pricey{ fill:var(--c-pricey); }
+.arr.t-skip{ fill:var(--c-skip); }
+.arr.t-best,.arr.t-stretch,.arr.t-tower{ fill-opacity:.82; }
+.arr.t-pricey{ fill-opacity:.38; }
+.arr.t-skip{ fill-opacity:.42; }
+.arr.dim{ opacity:.32; }
+.arr.hot{ fill-opacity:1; stroke:var(--ink); stroke-width:2; }
+
+.seine{ fill:none; stroke:var(--seine); stroke-width:6.5; stroke-linecap:round; stroke-linejoin:round; }
+
+.arr-num{
+  font-family:var(--mono); font-size:14px; font-weight:600; fill:var(--ink);
+  text-anchor:middle; paint-order:stroke fill; stroke:var(--surface);
+  stroke-width:3.5; pointer-events:none;
+}
+.lm-dot{ fill:var(--ink); opacity:.62; pointer-events:none; }
+.lm-label{
+  font-family:var(--sans); font-size:11.5px; fill:var(--ink); opacity:.78;
+  paint-order:stroke fill; stroke:var(--surface); stroke-width:3.2;
+  pointer-events:none;
+}
+
+.legend{
+  display:flex; flex-wrap:wrap; gap:8px 22px; list-style:none;
+  margin:0; padding:14px clamp(14px,2.4vw,22px) 18px;
+  border-top:1px solid var(--hair); background:var(--land-2);
+  font-size:13.5px; color:var(--ink-soft);
+}
+.legend li{ display:flex; align-items:center; gap:8px; }
+.sw{ width:14px; height:14px; border-radius:4px; border:1px solid var(--hair); flex:none; }
+.legend .t-best .sw{ background:var(--c-best); }
+.legend .t-stretch .sw{ background:var(--c-stretch); }
+.legend .t-tower .sw{ background:var(--c-tower); }
+.legend .t-pricey .sw{ background:var(--c-pricey); opacity:.5; }
+.legend .t-skip .sw{ background:var(--c-skip); opacity:.55; }
+
+h2{
+  font-family:var(--serif); font-weight:600; font-size:clamp(21px,2.6vw,27px);
+  letter-spacing:-.01em; margin:clamp(38px,5vw,56px) 0 6px;
+}
+.section-note{ color:var(--ink-soft); margin:0 0 22px; max-width:62ch; }
+
+.grid{ display:grid; gap:14px; grid-template-columns:repeat(auto-fit,minmax(288px,1fr)); }
+.card{
+  background:var(--surface); border:1px solid var(--hair); border-left:4px solid var(--hair);
+  border-radius:11px; padding:18px 20px 20px; box-shadow:var(--shadow);
+  transition:transform .18s ease, border-color .18s ease; outline:none;
+}
+.card.t-best{ border-left-color:var(--c-best); }
+.card.t-stretch{ border-left-color:var(--c-stretch); }
+.card.t-tower{ border-left-color:var(--c-tower); }
+.card.t-pricey{ border-left-color:var(--c-pricey); }
+.card.t-skip{ border-left-color:var(--c-skip); }
+.card.hot{ transform:translateY(-3px); border-color:var(--ink); }
+.card:focus-visible{ box-shadow:0 0 0 3px var(--c-stretch); }
+
+.card-head{ display:flex; align-items:baseline; gap:10px; margin-bottom:4px; }
+.card-num{
+  font-family:var(--mono); font-size:20px; font-weight:700;
+  font-variant-numeric:tabular-nums; letter-spacing:-.02em;
+}
+.card-num sup{ font-size:11px; }
+.card-name{ font-family:var(--serif); font-size:17px; }
+.card-meta{
+  display:flex; flex-wrap:wrap; gap:8px; margin:0 0 10px;
+  font-size:13px; color:var(--ink-soft); font-family:var(--mono);
+}
+.price{ font-weight:600; color:var(--ink); }
+.sep{ opacity:.45; }
+.card-body{ margin:0; font-size:14.5px; line-height:1.62; color:var(--ink-soft); }
+
+.foot{
+  margin-top:clamp(34px,5vw,50px); padding-top:20px; border-top:1px solid var(--hair);
+  color:var(--ink-soft); font-size:14px; max-width:70ch;
+}
+.foot b{ color:var(--ink); }
+@media (prefers-reduced-motion:reduce){ *{ transition:none !important; } .card.hot{ transform:none; } }
+</style>
+
+<div class="wrap">
+  <p class="eyebrow">Paris / 13-21 April 2027 / 8 nights, two people</p>
+  <h1>Where to actually stay</h1>
+  <p class="lede">You asked for the Marais or the Eiffel Tower. Those are the two most expensive
+  places in the city to sleep. Everything coloured below is a way to get the same trip for
+  <b>EUR 90-140 a night</b> instead of double that. Hover anything to link the map to the notes.</p>
+
+  <div class="panel">
+    <div class="map-scroll">
+      <svg class="map" viewBox="0 0 1000 720" role="img"
+           aria-label="Map of the 20 arrondissements of central Paris, colour-coded by how well each suits a budget stay.">
+<path class="arr t-pricey" data-arr="1" d="M472.5,279.8L476.2,282.5L587.3,322.3L568.7,372.6L565.6,375.5L559.6,389.6L552.5,400.1L543.0,393.3L532.0,379.2L513.9,364.0L488.6,356.0L472.1,349.5L451.3,338.3L422.9,325.2L437.5,296.6L437.3,296.5L447.0,275.7L446.2,272.0L461.7,268.0L472.5,279.8Z"><title>1e - Louvre. Priced for tourists</title></path>
+<path class="arr" data-arr="2" d="M587.3,322.3L476.2,282.5L472.5,279.8L461.7,268.1L527.6,251.0L570.5,261.6L605.4,273.0L587.3,322.3Z"><title>2e - Bourse. Fine, but not a priority</title></path>
+<path class="arr t-stretch" data-arr="3" d="M654.6,285.4L660.0,290.3L673.7,325.2L683.3,386.1L661.1,380.5L646.4,373.5L633.3,364.5L619.8,350.1L600.3,340.0L582.9,334.0L605.4,273.0L616.9,277.0L654.6,285.4Z"><title>3e - Haut Marais. Worth stretching for</title></path>
+<path class="arr t-pricey" data-arr="4" d="M683.3,386.1L686.8,407.5L672.3,455.6L661.0,465.9L650.4,453.5L645.1,448.5L632.3,438.1L602.3,423.6L595.8,422.2L582.3,417.1L573.7,412.0L565.4,406.4L552.5,400.1L559.6,389.6L565.6,375.5L568.7,372.6L582.9,334.0L600.3,340.0L619.8,350.1L633.3,364.5L646.4,373.5L661.1,380.5L683.3,386.1Z"><title>4e - Marais / Ile St-Louis. Priced for tourists</title></path>
+<path class="arr" data-arr="5" d="M650.4,453.5L669.8,475.9L663.8,481.5L663.0,483.9L646.7,517.2L592.0,543.7L565.7,539.2L525.9,526.4L509.5,519.8L509.8,511.1L511.6,510.6L512.6,509.2L531.9,455.8L541.9,431.2L550.8,402.6L552.5,400.1L565.4,406.4L573.7,412.0L582.3,417.1L595.8,422.2L602.3,423.6L632.3,438.1L645.1,448.5L650.4,453.5Z"><title>5e - Latin Quarter. Fine, but not a priority</title></path>
+<path class="arr t-pricey" data-arr="6" d="M550.8,402.6L541.9,431.2L531.9,455.8L512.6,509.2L511.6,510.6L509.8,511.1L509.5,519.8L419.1,474.4L413.3,471.1L399.2,460.2L414.4,451.7L440.6,431.8L454.3,423.3L457.3,420.2L464.0,418.6L468.9,412.0L475.0,397.0L477.2,390.5L490.5,365.0L486.0,363.0L488.6,356.0L513.9,364.0L532.0,379.2L543.0,393.3L552.5,400.1L550.8,402.6Z"><title>6e - Saint-Germain. Priced for tourists</title></path>
+<path class="arr t-pricey" data-arr="7" d="M313.4,424.0L252.9,365.2L263.5,352.4L277.5,337.4L289.5,329.3L295.1,326.6L302.8,323.8L308.9,322.5L317.2,321.7L409.6,319.2L411.1,319.5L451.3,338.3L472.1,349.5L488.6,356.0L486.0,363.0L490.5,365.0L477.2,390.5L475.0,397.0L468.9,412.0L464.0,418.6L457.3,420.2L454.3,423.3L440.6,431.8L414.4,451.7L396.6,461.5L383.6,467.6L366.1,450.5L352.5,455.4L348.7,457.5L313.8,423.5L313.4,424.0Z"><title>7e - Eiffel / Invalides. Priced for tourists</title></path>
+<path class="arr t-pricey" data-arr="8" d="M449.9,271.1L446.2,272.0L447.0,275.7L437.3,296.5L437.5,296.6L422.9,325.2L411.1,319.5L409.6,319.2L317.2,321.7L316.8,313.0L309.6,308.5L308.0,306.3L302.6,279.4L295.0,259.7L281.4,236.0L298.4,200.3L355.6,181.6L399.6,173.2L457.2,155.3L455.4,220.7L453.9,221.0L456.5,236.4L454.9,241.3L449.9,271.1Z"><title>8e - Champs-Elysees. Priced for tourists</title></path>
+<path class="arr" data-arr="9" d="M526.3,167.5L565.4,155.8L579.4,153.3L579.8,155.3L581.3,179.1L578.2,192.2L577.2,205.3L572.5,219.3L570.6,234.0L570.5,261.6L527.6,251.0L449.9,271.1L454.9,241.3L456.5,236.4L453.9,221.0L455.4,220.7L457.2,155.3L462.5,153.5L469.6,146.4L486.0,152.3L512.6,164.4L526.3,167.5Z"><title>9e - Opera. Fine, but not a priority</title></path>
+<path class="arr t-stretch" data-arr="10" d="M663.3,148.0L682.6,150.3L684.8,151.9L686.0,155.6L687.2,157.6L692.4,161.5L692.7,162.3L693.0,201.0L729.7,250.3L708.4,262.2L689.5,271.0L678.4,277.1L667.0,282.4L657.7,288.2L654.6,285.4L616.9,277.0L570.5,261.6L570.6,234.0L572.5,219.3L577.2,205.3L578.2,192.2L581.3,179.1L579.8,155.3L579.4,153.3L631.9,147.5L663.3,148.0Z"><title>10e - Canal St-Martin. Worth stretching for</title></path>
+<path class="arr t-best" data-arr="11" d="M828.6,386.8L847.0,422.6L851.6,443.4L850.8,449.6L833.3,447.2L766.9,432.0L746.8,430.0L739.7,428.5L712.2,418.2L702.2,413.8L698.6,411.4L693.4,406.7L686.8,407.5L673.7,325.2L660.0,290.3L657.7,288.2L667.0,282.4L678.4,277.1L689.5,271.0L708.4,262.2L729.7,250.3L735.1,258.3L763.0,290.9L765.1,297.0L786.1,324.9L787.3,327.7L798.5,362.6L799.8,363.7L813.3,369.8L825.2,379.1L828.6,386.8Z"><title>11e - Oberkampf / Bastille. Best value, start here</title></path>
+<path class="arr t-best" data-arr="12" d="M932.2,570.4L940.7,569.5L948.5,567.2L958.8,562.5L976.0,553.5L976.0,648.6L964.8,648.7L946.5,643.3L940.8,642.8L925.8,643.3L918.4,642.2L912.1,640.2L907.0,637.3L900.7,632.2L895.8,627.3L884.6,614.6L879.9,609.9L869.2,603.0L832.2,618.9L824.7,620.7L802.3,635.6L784.1,616.2L770.4,598.4L740.3,562.7L730.2,550.1L708.4,519.6L661.0,465.9L672.3,455.6L686.8,407.5L693.0,406.7L698.9,411.7L702.2,413.8L712.2,418.2L739.7,428.5L746.8,430.0L766.9,432.0L833.3,447.2L943.1,461.9L941.4,474.4L929.5,534.5L922.7,562.2L917.0,568.0L924.6,569.7L932.2,570.4ZM976.0,549.1L973.7,542.3L972.1,531.4L969.7,520.0L967.3,512.8L964.2,508.0L962.7,504.2L961.9,496.3L962.5,494.5L964.3,491.6L964.6,490.1L964.4,488.4L976.0,479.9L976.0,549.1Z"><title>12e - Bercy / Aligre. Best value, start here</title></path>
+<path class="arr" data-arr="13" d="M729.7,549.3L740.3,562.7L770.4,598.4L784.1,616.2L802.3,635.6L794.4,641.6L754.5,663.2L750.4,669.1L684.3,702.1L655.4,716.0L614.4,716.7L595.2,695.4L565.2,717.6L551.6,715.6L552.0,720.0L549.1,718.4L549.8,702.9L552.7,687.0L548.6,680.2L542.0,673.3L538.5,665.8L536.8,660.8L535.2,652.7L536.6,633.0L536.2,615.7L536.0,612.3L534.7,605.0L533.6,579.3L536.0,560.0L538.7,530.5L565.7,539.2L592.2,543.6L646.7,517.2L663.0,483.9L663.8,481.5L669.8,475.9L708.4,519.6L729.7,549.3Z"><title>13e - Gobelins. Fine, but not a priority</title></path>
+<path class="arr" data-arr="14" d="M509.5,519.8L525.7,526.3L538.7,530.5L536.0,560.0L533.6,579.3L534.7,605.0L536.0,612.3L536.2,615.7L536.6,633.0L535.2,652.7L536.8,660.8L538.5,665.8L542.0,673.3L548.6,680.2L552.7,687.0L549.8,702.9L549.1,718.4L544.2,715.7L536.7,713.6L493.0,710.1L482.2,707.8L485.6,698.0L315.1,640.4L355.0,591.1L367.6,574.9L417.5,512.6L425.5,518.8L428.0,515.5L426.1,508.5L443.7,486.8L509.5,519.8Z"><title>14e - Montparnasse. Fine, but not a priority</title></path>
+<path class="arr t-tower" data-arr="15" d="M313.4,424.0L313.8,423.5L348.7,457.5L352.5,455.4L366.1,450.5L383.6,467.6L399.2,460.2L413.3,471.1L443.7,486.8L426.1,508.5L428.0,515.5L425.5,518.8L417.5,512.6L367.6,574.9L355.0,591.1L315.1,640.4L266.0,623.9L217.2,592.7L193.8,579.6L174.5,603.5L159.4,617.3L132.5,618.0L131.4,617.0L129.7,587.7L131.3,585.8L136.8,581.1L142.5,576.3L144.6,575.1L132.7,562.1L129.6,561.4L105.9,567.7L118.0,548.8L131.2,529.2L143.2,509.7L175.7,459.0L194.5,435.7L243.5,382.9L248.0,371.7L252.9,365.2L313.4,424.0Z"><title>15e - Vaugirard. For the tower view</title></path>
+<path class="arr t-pricey" data-arr="16" d="M185.4,201.2L198.0,195.5L281.4,236.0L295.0,259.7L302.6,279.4L308.0,306.3L309.6,308.5L316.8,313.0L317.2,321.7L304.3,323.4L297.2,325.8L288.6,329.8L276.8,337.9L263.5,352.4L248.7,370.6L243.5,382.9L194.5,435.7L175.7,459.0L143.2,509.7L131.2,529.2L118.0,548.8L105.9,567.7L63.2,560.1L44.0,526.0L41.7,492.8L48.9,470.5L38.6,470.1L24.0,464.4L24.0,219.5L61.4,233.5L64.6,232.0L81.0,183.5L83.6,181.9L185.4,201.2Z"><title>16e - Passy / Trocadero. Priced for tourists</title></path>
+<path class="arr" data-arr="17" d="M281.4,236.0L198.0,195.5L198.9,195.1L204.1,160.3L230.1,129.6L262.2,105.7L281.5,102.2L300.7,86.9L349.6,51.8L375.7,36.8L409.8,21.0L420.1,11.7L473.5,9.4L448.5,121.9L458.6,155.0L399.6,173.2L355.6,181.6L298.4,200.3L281.4,236.0Z"><title>17e - Batignolles. Fine, but not a priority</title></path>
+<path class="arr t-skip" data-arr="18" d="M662.4,148.0L631.9,147.5L579.4,153.3L565.4,155.8L526.3,167.5L512.6,164.4L486.0,152.3L469.6,146.4L462.5,153.5L458.6,155.0L448.5,121.9L473.5,9.4L693.1,2.5L692.4,5.3L693.6,46.0L701.3,56.1L694.3,62.6L691.6,67.6L682.2,100.5L678.2,112.4L673.9,129.1L662.4,148.0Z"><title>18e - Montmartre. Not on this trip</title></path>
+<path class="arr t-skip" data-arr="19" d="M770.4,0.0L804.8,9.9L831.1,32.4L843.4,62.8L848.1,89.9L851.2,115.9L851.3,139.2L856.2,152.6L863.8,162.5L880.9,174.1L906.7,182.1L914.9,197.4L899.8,204.0L893.6,207.4L888.3,209.2L869.6,217.5L849.8,221.9L840.8,222.2L830.1,223.8L810.6,222.0L803.1,222.2L799.7,223.1L792.9,227.6L783.2,229.2L773.1,236.2L758.4,239.7L749.4,242.4L729.7,250.3L693.0,201.0L692.7,162.3L692.4,161.5L687.2,157.6L686.0,155.6L684.8,151.9L682.6,150.3L662.4,148.0L673.9,129.1L678.2,112.4L682.2,100.5L691.6,67.6L694.3,62.6L701.3,56.1L693.6,46.0L692.5,4.1L693.1,2.5L770.4,0.0Z"><title>19e - Buttes-Chaumont. Not on this trip</title></path>
+<path class="arr" data-arr="20" d="M924.0,214.4L930.1,246.0L932.3,276.6L931.4,316.7L932.7,331.4L945.5,443.8L943.1,461.9L850.8,449.6L851.6,443.4L847.0,422.6L828.6,386.8L825.2,379.1L813.3,369.8L798.6,362.8L787.3,327.7L786.1,324.9L765.1,297.0L763.0,290.9L735.1,258.3L729.7,250.3L749.4,242.4L758.4,239.7L773.1,236.2L783.2,229.2L792.9,227.6L799.7,223.1L803.1,222.2L810.6,222.0L830.1,223.8L840.8,222.2L849.8,221.9L869.6,217.5L888.3,209.2L893.6,207.4L899.8,204.0L914.9,197.4L924.0,214.4Z"><title>20e - Belleville. Fine, but not a priority</title></path>
+<path class="seine" d="M105.9,567.7L131.2,529.2L175.7,459.0L194.5,435.7L243.5,382.9L249.1,370.0L263.5,352.4L277.5,337.4L286.7,330.9L292.4,327.9L302.8,323.8L308.9,322.5L317.2,321.7L409.9,319.2L451.3,338.3L472.1,349.5L488.6,356.0L513.9,364.0L532.0,379.2L543.0,393.3L552.5,400.1L565.4,406.4L581.9,417.0L595.8,422.2L602.3,423.6L628.8,436.2L635.8,440.6L650.4,453.5L708.4,519.6L730.2,550.1L740.3,562.7L770.4,598.4L784.1,616.2L802.3,635.6"/>
+<text class="arr-num" data-arr="1" x="512.8" y="334.5">1</text>
+<text class="arr-num" data-arr="2" x="544.0" y="286.3">2</text>
+<text class="arr-num" data-arr="3" x="629.7" y="327.8">3</text>
+<text class="arr-num" data-arr="4" x="620.4" y="395.0">4</text>
+<text class="arr-num" data-arr="5" x="596.3" y="472.1">5</text>
+<text class="arr-num" data-arr="6" x="485.3" y="438.4">6</text>
+<text class="arr-num" data-arr="7" x="379.5" y="394.5">7</text>
+<text class="arr-num" data-arr="8" x="369.6" y="240.8">8</text>
+<text class="arr-num" data-arr="9" x="515.8" y="209.0">9</text>
+<text class="arr-num" data-arr="10" x="639.4" y="218.3">10</text>
+<text class="arr-num" data-arr="11" x="736.1" y="350.2">11</text>
+<text class="arr-num" data-arr="12" x="822.6" y="528.1">12</text>
+<text class="arr-num" data-arr="13" x="652.2" y="598.1">13</text>
+<text class="arr-num" data-arr="14" x="440.1" y="602.6">14</text>
+<text class="arr-num" data-arr="15" x="287.9" y="504.5">15</text>
+<text class="arr-num" data-arr="16" x="135.3" y="375.2">16</text>
+<text class="arr-num" data-arr="17" x="342.5" y="125.8">17</text>
+<text class="arr-num" data-arr="18" x="571.7" y="84.8">18</text>
+<text class="arr-num" data-arr="19" x="763.1" y="124.8">19</text>
+<text class="arr-num" data-arr="20" x="860.4" y="330.3">20</text>
+<circle class="lm-dot" cx="278.4" cy="363.9" r="3.2"/>
+<text class="lm-label" x="285.4" y="367.5">Eiffel Tower</text>
+<circle class="lm-dot" cx="281.2" cy="235.8" r="3.2"/>
+<text class="lm-label" x="288.2" y="239.4">Arc de Triomphe</text>
+<circle class="lm-dot" cx="514.2" cy="345.6" r="3.2"/>
+<text class="lm-label" x="521.2" y="349.20000000000005">Louvre</text>
+<circle class="lm-dot" cx="581.5" cy="408.8" r="3.2"/>
+<text class="lm-label" x="588.5" y="412.40000000000003">Notre-Dame</text>
+<circle class="lm-dot" cx="544.3" cy="128.6" r="3.2"/>
+<text class="lm-label" x="551.3" y="132.2">Sacre-Coeur</text>
+<circle class="lm-dot" cx="656.5" cy="288.2" r="3.2"/>
+<text class="lm-label" x="663.5" y="291.8">Republique</text>
+<circle class="lm-dot" cx="687.1" cy="407.1" r="3.2"/>
+<text class="lm-label" x="694.1" y="410.70000000000005">Bastille</text>
+<circle class="lm-dot" cx="680.5" cy="312.3" r="3.2"/>
+<text class="lm-label" x="687.5" y="315.90000000000003">Oberkampf</text>
+<circle class="lm-dot" cx="669.6" cy="259.1" r="3.2"/>
+<text class="lm-label" x="676.6" y="262.70000000000005">Canal St-Martin</text>
+<circle class="lm-dot" cx="736.3" cy="433.8" r="3.2"/>
+<text class="lm-label" x="743.3" y="437.40000000000003">Marche d'Aligre</text>
+<circle class="lm-dot" cx="611.1" cy="176.8" r="3.2"/>
+<text class="lm-label" x="618.1" y="180.4">Gare du Nord</text>
+      </svg>
+    </div>
+    <ul class="legend"><li class="t-best"><span class="sw"></span>Best value, start here</li><li class="t-stretch"><span class="sw"></span>Worth stretching for</li><li class="t-tower"><span class="sw"></span>For the tower view</li><li class="t-pricey"><span class="sw"></span>Priced for tourists</li><li class="t-skip"><span class="sw"></span>Not on this trip</li></ul>
+  </div>
+
+  <h2>The shortlist</h2>
+  <p class="section-note">Prices are what a decent studio or aparthotel should cost per night in
+  mid-April. Walk times are to the middle of the Marais.</p>
+  <div class="grid">
+<article class="card t-best" data-arr="11" tabindex="0"><header class="card-head"><span class="card-num">11<sup>e</sup></span><span class="card-name">Oberkampf / Bastille</span></header><p class="card-meta"><span class="price">EUR 90-140</span><span class="sep">/</span><span>10-20 min walk to the Marais</span></p><p class="card-body">The recommendation. You get Marais evenings without the Marais room rate, and it is where Parisians actually eat and drink rather than where tour groups get photographed. Oberkampf, Rue de la Roquette and Popincourt are the streets to search.</p></article>
+<article class="card t-best" data-arr="12" tabindex="0"><header class="card-head"><span class="card-num">12<sup>e</sup></span><span class="card-name">Bercy / Aligre</span></header><p class="card-meta"><span class="price">EUR 85-130</span><span class="sep">/</span><span>15 min walk to the Marais</span></p><p class="card-body">Quieter and cheaper again. The Marche d'Aligre is one of the last real market streets in central Paris, and the Coulee Verte is a planted railway viaduct you can walk the length of. Residential in the good way.</p></article>
+<article class="card t-stretch" data-arr="3" tabindex="0"><header class="card-head"><span class="card-num">3<sup>e</sup></span><span class="card-name">Haut Marais</span></header><p class="card-meta"><span class="price">EUR 120-170</span><span class="sep">/</span><span>You are already in it</span></p><p class="card-body">Genuinely the Marais, but the upper half around Arts et Metiers, so noticeably cheaper than the 4th below it. Spend the extra here if the Marais itself is non-negotiable for her.</p></article>
+<article class="card t-stretch" data-arr="10" tabindex="0"><header class="card-head"><span class="card-num">10<sup>e</sup></span><span class="card-name">Canal St-Martin</span></header><p class="card-meta"><span class="price">EUR 80-120</span><span class="sep">/</span><span>15 min walk to the Marais</span></p><p class="card-body">Canal Saint-Martin is cheap and has real atmosphere, but stay south and east of the water. Anything within a few blocks of Gare du Nord, Gare de l'Est or Chateau d'Eau is where the suspiciously cheap listings live, and you will not enjoy the walk home.</p></article>
+<article class="card t-tower" data-arr="15" tabindex="0"><header class="card-head"><span class="card-num">15<sup>e</sup></span><span class="card-name">Vaugirard</span></header><p class="card-meta"><span class="price">EUR 85-125</span><span class="sep">/</span><span>Across the river from the tower</span></p><p class="card-body">The honest way to wake up near the Eiffel Tower. Residential, safe, a fraction of 7th prices, and some streets have a tower view from the window. The trade is that it is quiet, so you will be taking the metro out for dinner.</p></article>
+<article class="card t-pricey" data-arr="7" tabindex="0"><header class="card-head"><span class="card-num">7<sup>e</sup></span><span class="card-name">Eiffel / Invalides</span></header><p class="card-meta"><span class="price">EUR 180-260</span><span class="sep">/</span><span>Skip it</span></p><p class="card-body">The obvious choice and the wrong one. Past the price, this is an embassy and ministry district: dead after dark, almost nowhere to eat. You can see the tower from half the city, so you do not need to sleep underneath it. The 4th, 6th, 1st and 8th fail the same test.</p></article>
+<article class="card t-skip" data-arr="18" tabindex="0"><header class="card-head"><span class="card-num">18<sup>e</sup></span><span class="card-name">Montmartre</span></header><p class="card-meta"><span class="price">cheap</span><span class="sep">/</span><span>Not worth the saving</span></p><p class="card-body">Montmartre proper is lovely and expensive. The cheap listings are north of it, around Barbes, La Chapelle and Chateau Rouge, and the 19th near Stalingrad is the same trade. Cheap for reasons you will feel at midnight.</p></article>
+  </div>
+
+  <p class="foot">One caveat worth taking seriously: <b>this is drawn at arrondissement level, and
+  streets vary enormously inside them.</b> The 10th is the clearest case, where four blocks decides
+  whether you have booked a canal or a station forecourt. Once you have a shortlist, check the exact
+  address rather than trusting the colour. Boundaries are the City of Paris open-data set; the Seine
+  is derived from where the left-bank and right-bank arrondissements meet.</p>
+</div>
+
+<script>
+(function () {
+  var paths = document.querySelectorAll('svg.map .arr');
+  var nums = document.querySelectorAll('svg.map .arr-num');
+  var cards = document.querySelectorAll('.card');
+
+  function all(fn) { paths.forEach(fn); cards.forEach(fn); nums.forEach(fn); }
+
+  function focusOn(arr) {
+    all(function (el) {
+      el.classList.remove('hot', 'dim');
+    });
+    if (!arr) return;
+    paths.forEach(function (p) {
+      if (p.dataset.arr === arr) p.classList.add('hot');
+      else p.classList.add('dim');
+    });
+    cards.forEach(function (c) {
+      if (c.dataset.arr === arr) c.classList.add('hot');
+    });
+  }
+
+  paths.forEach(function (p) {
+    p.addEventListener('mouseenter', function () { focusOn(p.dataset.arr); });
+    p.addEventListener('mouseleave', function () { focusOn(null); });
+  });
+  cards.forEach(function (c) {
+    c.addEventListener('mouseenter', function () { focusOn(c.dataset.arr); });
+    c.addEventListener('mouseleave', function () { focusOn(null); });
+    c.addEventListener('focus', function () { focusOn(c.dataset.arr); });
+    c.addEventListener('blur', function () { focusOn(null); });
+  });
+})();
+</script>
+
+</body>
+</html>
