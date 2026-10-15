@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Paris 2027 — Flights</title>
+<style>
+:root{
+  --paper:#E8ECF2; --surface:#FBFCFE; --ink:#16233A; --ink-soft:#56647B; --ink-faint:#8C9AAD;
+  --hair:#CCD6E2; --land-2:#E4EAF1; --good:#0F7059; --care:#9C6C15;
+  --shadow:0 1px 2px rgba(22,35,58,.05), 0 10px 26px -14px rgba(22,35,58,.28);
+  --serif:ui-serif,"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#0E1621; --surface:#161F2B; --ink:#E2E9F3; --ink-soft:#93A2B7; --ink-faint:#6C7C91;
+  --hair:#293546; --land-2:#222D3C; --good:#3FBA9C; --care:#D6A344;
+  --shadow:0 1px 2px rgba(0,0,0,.45), 0 12px 30px -16px rgba(0,0,0,.8);}}
+:root[data-theme="dark"]{
+  --paper:#0E1621; --surface:#161F2B; --ink:#E2E9F3; --ink-soft:#93A2B7; --ink-faint:#6C7C91;
+  --hair:#293546; --land-2:#222D3C; --good:#3FBA9C; --care:#D6A344;
+  --shadow:0 1px 2px rgba(0,0,0,.45), 0 12px 30px -16px rgba(0,0,0,.8);}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans)}
+.wrap{max-width:1040px;margin:0 auto;padding:32px 20px 80px}
+h1{font-family:var(--serif);font-size:clamp(26px,4vw,36px);margin:.2em 0 .2em}
+h2{font-family:var(--serif);font-size:22px;margin:38px 0 6px}
+.dek{color:var(--ink-soft);max-width:60ch;margin:0 0 26px;line-height:1.5}
+.lede{color:var(--ink-soft);max-width:68ch;margin:0 0 14px;line-height:1.5;font-size:15px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin:0 0 30px}
+.card{background:var(--surface);border:1px solid var(--hair);border-radius:12px;padding:16px 18px;box-shadow:var(--shadow)}
+.card .lbl{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-faint)}
+.card .val{font-family:var(--serif);font-size:24px;margin-top:6px}
+.card .sub{font-size:13px;color:var(--ink-soft);margin-top:4px}
+.tablebox{background:var(--surface);border:1px solid var(--hair);border-radius:12px;box-shadow:var(--shadow);overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:14px;min-width:720px}
+th{font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-faint);
+  text-align:left;padding:12px 12px;border-bottom:1px solid var(--hair)}
+td{padding:9px 12px;border-bottom:1px solid var(--hair);vertical-align:top;line-height:1.45}
+tr:last-child td{border-bottom:none}
+td.num,th.num{text-align:right;font-family:var(--mono);font-size:13px;white-space:nowrap}
+tr.cat td{background:var(--land-2);font-weight:600;font-family:var(--serif);font-size:15px}
+td:first-child{min-width:150px}
+tr.pick td{background:color-mix(in srgb,var(--good) 9%,transparent)}
+.note{font-size:12.5px;color:var(--ink-soft);margin-top:2px;max-width:46ch}
+.conf{font-size:11.5px;padding:2px 8px;border-radius:99px;border:1px solid var(--hair);color:var(--ink-soft);white-space:nowrap}
+.conf.verified{color:var(--good);border-color:currentColor}
+.conf.warn{color:var(--care);border-color:currentColor}
+.pos{color:var(--care)} .neg{color:var(--good)}
+ul.notes{margin:8px 0 0;padding-left:20px;line-height:1.55;max-width:72ch}
+ul.notes li{margin-bottom:6px}
+.foot{color:var(--ink-faint);font-size:13px;margin-top:18px;line-height:1.5}
+.foot a,.lede a,ul.notes a{color:inherit}
+</style>
+</head>
+<body>
+
+<style>
+.site-nav{position:sticky;top:0;z-index:9999;display:flex;align-items:center;gap:2px;
+  padding:0 14px;height:52px;overflow-x:auto;-webkit-overflow-scrolling:touch;
+  background:var(--surface,#FBFCFE);border-bottom:1px solid var(--hair,#CCD6E2);
+  font-family:var(--sans,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif);
+  box-shadow:0 1px 2px rgba(22,35,58,.06)}
+.site-nav .brand{font-family:var(--serif,Georgia,serif);font-size:17px;font-weight:700;
+  color:var(--ink,#16233A);margin-right:14px;white-space:nowrap;text-decoration:none}
+.site-nav a.nav-item{color:var(--ink-soft,#56647B);text-decoration:none;font-size:14px;
+  padding:6px 11px;border-radius:8px;white-space:nowrap;line-height:1}
+.site-nav a.nav-item:hover{color:var(--ink,#16233A);background:var(--land-2,#E3E9F1)}
+.site-nav a.nav-item.active{color:var(--ink,#16233A);font-weight:600;
+  background:var(--land-2,#E3E9F1)}
+</style>
+<nav class="site-nav"><a class="brand" href="index.html">Paris 2027</a><a class="nav-item" href="index.html">Home</a><a class="nav-item" href="map.html">Map</a><a class="nav-item" href="neighbourhoods.html">Neighbourhoods</a><a class="nav-item" href="budget.html">Budget</a><a class="nav-item active" href="flights.html">Flights</a></nav>
+
+<div class="wrap">
+<h1>Flights</h1>
+<p class="dek">Almaty → Paris → a beach city for 2 nights → Almaty. Every option for each leg, priced as April one-way averages per person (Kupi.com, checked 15 Oct 2026). These are planning figures, not live 2027 fares.</p>
+
+<div class="cards">
+  <div class="card"><div class="lbl">Best beach stop</div><div class="val">Antalya</div><div class="sub">Nonstop both ways · 20–24 °C · no visa</div></div>
+  <div class="card"><div class="lbl">Whole trip, 2 people</div><div class="val">771 932 ₸</div><div class="sub">≈ €1,516 · all 3 legs via Antalya</div></div>
+  <div class="card"><div class="lbl">vs. no beach stop</div><div class="val">−53 606 ₸</div><div class="sub">Paris → Almaty direct is 825 538 ₸ for two</div></div>
+  <div class="card"><div class="lbl">Barcelona instead</div><div class="val">+124–167k ₸</div><div class="sub">vs. no beach stop · one stop in Istanbul</div></div>
+</div>
+
+<h2>Whole trip compared</h2>
+<p class="lede">All three legs for both travellers, April averages. Euros at NBK €1 = 509.23 ₸ (16 Oct 2026). Hotel nights not included.</p>
+<div class="tablebox">
+<table>
+<thead><tr><th>Route</th><th class="num">Almaty → Paris</th><th class="num">Paris → beach</th><th class="num">Beach → Almaty</th><th class="num">Total, 2 people</th><th class="num">≈ €</th><th class="num">vs. no beach</th></tr></thead>
+<tbody>
+<tr class="pick"><td><b>Antalya</b><div class="note">Nonstop on every leg after Paris. Daily Air Astana home.</div></td><td class="num">246 589 ₸</td><td class="num">75 049 ₸</td><td class="num">64 328 ₸</td><td class="num"><b>771 932 ₸</b></td><td class="num">1,516</td><td class="num neg">−53 606 ₸</td></tr>
+<tr><td>Bodrum<div class="note">Air Astana home is seasonal. April not confirmed.</div></td><td class="num">246 589 ₸</td><td class="num">64 328 ₸</td><td class="num">91 131 ₸</td><td class="num">804 096 ₸</td><td class="num">1,579</td><td class="num neg">−21 442 ₸</td></tr>
+<tr><td>No beach stop (current plan)</td><td class="num">246 589 ₸</td><td class="num">—</td><td class="num">166 180 ₸</td><td class="num">825 538 ₸</td><td class="num">1,621</td><td class="num">0</td></tr>
+<tr><td>Nice<div class="note">One stop home, usually Istanbul.</div></td><td class="num">246 589 ₸</td><td class="num">50 926 ₸</td><td class="num">176 901 ₸</td><td class="num">948 832 ₸</td><td class="num">1,863</td><td class="num pos">+123 294 ₸</td></tr>
+<tr><td>Barcelona, 2 tickets via Istanbul<div class="note">Self-transfer: a missed connection is on you.</div></td><td class="num">246 589 ₸</td><td class="num">46 102 ₸</td><td class="num">182 262 ₸</td><td class="num">949 906 ₸</td><td class="num">1,865</td><td class="num pos">+124 368 ₸</td></tr>
+<tr><td>Barcelona, 1 ticket</td><td class="num">246 589 ₸</td><td class="num">46 102 ₸</td><td class="num">203 704 ₸</td><td class="num">992 790 ₸</td><td class="num">1,950</td><td class="num pos">+167 252 ₸</td></tr>
+<tr><td>Alicante</td><td class="num">246 589 ₸</td><td class="num">85 770 ₸</td><td class="num">235 868 ₸</td><td class="num">1 136 454 ₸</td><td class="num">2,232</td><td class="num pos">+310 916 ₸</td></tr>
+</tbody>
+</table>
+</div>
+<p class="foot">Leg columns are per person; the total is for two. The Almaty → Paris average covers all airlines. The Pegasus Saver fare in the budget ($250 ≈ 113 535 ₸) is lower, so real totals could be lower too.</p>
+
+<h2>Leg 1 · Almaty → Paris</h2>
+<p class="lede">No nonstop flight. Every option changes in Istanbul. April average one-way, all airlines: 246 589 ₸. Fly Tue 13 Apr 2027.</p>
+<div class="tablebox">
+<table>
+<thead><tr><th>Option</th><th>Almaty → Istanbul</th><th>Istanbul → Paris</th><th class="num">Price / person</th><th>Notes</th></tr></thead>
+<tbody>
+<tr class="pick"><td><b>Pegasus, one ticket</b><div class="note">ALA → SAW → ORY</div></td><td>PC 101, 05:25, about 6 h 10 min · 4×/week</td><td>Sabiha Gökçen → Orly, about 3 h 45 min · 9×/week</td><td class="num">$218–313<div class="note">≈ 99–142k ₸</div></td><td><span class="conf verified">Seen</span> <div class="note">Seen on the Pegasus March 2027 fare board, 7 Aug 2026. April fares not on sale then. Saver includes 20 kg.</div></td></tr>
+<tr><td>Turkish Airlines, one ticket<div class="note">ALA → IST → CDG</div></td><td>TK 351 05:25, TK 353 09:55, TK 451 01:45 · about 20×/week</td><td>Istanbul → CDG, about 3 h 44 min · 30×/week</td><td class="num">≈ 246 589 ₸<div class="note">route average</div></td><td><span class="conf">Estimate</span><div class="note">Most frequent, full-service, bag included.</div></td></tr>
+<tr><td>Air Astana + onward<div class="note">ALA → IST, then Paris</div></td><td>KC 911, 16:20, about 6 h · 19×/week</td><td>Turkish, Transavia (to Orly) or AJet (to CDG)</td><td class="num">123 295 + 112 573 ₸<div class="note">= 235 868 ₸</div></td><td><span class="conf warn">Self-transfer</span><div class="note">Two tickets. Leave 3 h or more and check the airport (IST vs SAW).</div></td></tr>
+</tbody>
+</table>
+</div>
+
+<h2>Leg 2 · Paris → beach city</h2>
+<p class="lede">Every candidate has cheap nonstop flights from Paris. Barcelona and Nice can also be reached by TGV in about 6–7 h.</p>
+<div class="tablebox">
+<table>
+<thead><tr><th>To</th><th>Airlines · Paris airport</th><th>Weekly</th><th>Time</th><th class="num">April avg / person</th></tr></thead>
+<tbody>
+<tr class="pick"><td><b>Antalya</b> (AYT)</td><td>Transavia · Orly (TO 3270 07:10)<br>SunExpress · CDG<br>Pegasus · CDG</td><td>about 9×</td><td>about 4 h</td><td class="num">75 049 ₸</td></tr>
+<tr><td>Bodrum (BJV)</td><td>Transavia · Orly</td><td>about 1×</td><td>3 h 35 min</td><td class="num">64 328 ₸</td></tr>
+<tr><td>Barcelona (BCN)</td><td>Vueling · Orly/CDG (67×)<br>Air France · CDG · Transavia · Orly</td><td>about 450×</td><td>1 h 40 min</td><td class="num">46 102 ₸</td></tr>
+<tr><td>Nice (NCE)</td><td>easyJet, Air France, Transavia</td><td>about 800×</td><td>1 h 25 min</td><td class="num">50 926 ₸</td></tr>
+<tr><td>Alicante (ALC)</td><td>Vueling (17×), Transavia (7×), Iberia</td><td>about 77×</td><td>2 h</td><td class="num">85 770 ₸</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2>Leg 3 · Beach city → Almaty</h2>
+<p class="lede">This leg decides the price. Only Turkey has nonstop flights to Almaty in April.</p>
+<div class="tablebox">
+<table>
+<thead><tr><th>From</th><th>How</th><th>Flights</th><th>Time</th><th class="num">April avg / person</th></tr></thead>
+<tbody>
+<tr class="pick"><td><b>Antalya</b></td><td>Nonstop</td><td>Air Astana KC 916, daily 13:50 → 21:00<br>Pegasus PC 110, 20:15 → 03:15</td><td>about 5 h 10 min</td><td class="num">64 328 ₸</td></tr>
+<tr><td>Bodrum</td><td>Nonstop, seasonal</td><td>Air Astana, April unconfirmed</td><td>about 5 h 46 min</td><td class="num">91 131 ₸</td></tr>
+<tr><td>Nice</td><td>1 stop</td><td>Usually via Istanbul (Pegasus to SAW)</td><td>about 8–10 h</td><td class="num">176 901 ₸</td></tr>
+<tr><td>Barcelona, 2 tickets</td><td>Self-transfer in Istanbul</td><td>BCN → IST/SAW: Turkish 17×, Vueling 13×, Pegasus 7×/week (83 090 ₸)<br>IST → ALA: Turkish, Air Astana KC 912 21:25, Pegasus PC 100 21:20 (99 172 ₸)</td><td>3 h 30 min + 5 h 10 min + layover</td><td class="num">182 262 ₸</td></tr>
+<tr><td>Barcelona, 1 ticket</td><td>1 stop</td><td>Turkish via IST or Pegasus via SAW</td><td>about 10–12 h</td><td class="num">203 704 ₸</td></tr>
+<tr><td>Larnaca</td><td>Nonstop, seasonal</td><td>Air Astana</td><td>5 h 16 min</td><td class="num">225 147 ₸</td></tr>
+<tr><td>Alicante</td><td>1 stop</td><td>—</td><td>about 9–11 h</td><td class="num">235 868 ₸</td></tr>
+<tr><td>Gazipaşa / Alanya</td><td colspan="4"><span class="note">FlyArystan nonstop runs only 13 May – 24 Oct. Not available in April.</span></td></tr>
+</tbody>
+</table>
+</div>
+
+<h2>Dates</h2>
+<div class="tablebox">
+<table>
+<thead><tr><th>Plan</th><th>Paris</th><th>Beach</th><th>Fly home</th><th>Trade-off</th></tr></thead>
+<tbody>
+<tr><td><b>A</b> · beach comes out of Paris</td><td>13–19 Apr · 6 nights</td><td>19–21 Apr</td><td>Wed 21 Apr</td><td>Same trip length. Two fewer Paris nights.</td></tr>
+<tr><td><b>B</b> · extend</td><td>13–21 Apr · 8 nights</td><td>21–23 Apr</td><td>Fri 23 Apr</td><td>All of Paris kept, but you fly on Turkey's 23 April holiday weekend, so fares are higher.</td></tr>
+<tr><td><b>C</b> · extend by 1 day</td><td>13–20 Apr · 7 nights</td><td>20–22 Apr</td><td>Thu 22 Apr</td><td>One fewer Paris night. Home before the Turkish holiday.</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2>Before booking</h2>
+<ul class="notes">
+  <li><b>Visa:</b> apply through the French visa centre as planned and list the beach city on the itinerary. Turkey is visa-free for Kazakh passports and outside Schengen, so a single-entry visa covers the Antalya plan.</li>
+  <li><b>Tickets:</b> Almaty → Paris becomes a one-way. Check Pegasus multi-city (ALA → ORY, AYT → ALA) as one booking. Pegasus flies both Antalya and Almaty.</li>
+  <li><b>Bags:</b> the cheapest Transavia, easyJet, Vueling and Pegasus fares include only an underseat bag. Add one checked bag per person to every quote.</li>
+  <li><b>Self-transfer:</b> on two separate tickets, leave 3 h or more in Istanbul. IST and SAW are different airports, 1.5 h apart.</li>
+  <li><b>Weather:</b> mid-April sea is 15–18 °C everywhere here. Expect sunny walks, not swimming. Antalya is the warmest at 20–24 °C, Barcelona about 18 °C.</li>
+  <li><b>When:</b> watch prices now, buy Jan–Feb 2027 (see the Timeline sheet in the budget spreadsheet).</li>
+</ul>
+
+<p class="foot">Sources: Kupi.com route pages, opened 15 Oct 2026 —
+<a href="https://kupi.com/en/flights/from-almaty/to-paris">ALA→PAR</a>,
+<a href="https://kupi.com/en/flights/from-almaty/to-istanbul">ALA→IST</a>,
+<a href="https://kupi.com/en/flights/from-istanbul/to-paris">IST→PAR</a>,
+<a href="https://kupi.com/en/flights/from-paris/to-almaty">PAR→ALA</a>,
+<a href="https://kupi.com/en/flights/from-paris/to-antalya">PAR→AYT</a>,
+<a href="https://kupi.com/en/flights/from-antalya/to-almaty">AYT→ALA</a>,
+<a href="https://kupi.com/en/flights/from-paris/to-bodrum">PAR→BJV</a>,
+<a href="https://kupi.com/en/flights/from-bodrum/to-almaty">BJV→ALA</a>,
+<a href="https://kupi.com/en/flights/from-paris/to-barcelona">PAR→BCN</a>,
+<a href="https://kupi.com/en/flights/from-barcelona/to-almaty">BCN→ALA</a>,
+<a href="https://kupi.com/en/flights/from-barcelona/to-istanbul">BCN→IST</a>,
+<a href="https://kupi.com/en/flights/from-istanbul/to-almaty">IST→ALA</a>,
+<a href="https://kupi.com/en/flights/from-paris/to-nice">PAR→NCE</a>,
+<a href="https://kupi.com/en/flights/from-nice/to-almaty">NCE→ALA</a>,
+<a href="https://kupi.com/en/flights/from-paris/to-alicante">PAR→ALC</a>,
+<a href="https://kupi.com/en/flights/from-alicante/to-almaty">ALC→ALA</a>,
+<a href="https://kupi.com/en/flights/from-larnaca/to-almaty">LCA→ALA</a>.
+Seasonal routes: <a href="https://en.wikipedia.org/wiki/List_of_Air_Astana_destinations">Air Astana destinations</a>, <a href="https://dknews.kz/en/articles-in-english/384311-flyarystan-brings-back-direct-flights-to-alanya-from">FlyArystan Alanya</a>.
+Pegasus fare board: <span style="font-family:var(--mono)">paris-2027-budget.xlsx</span>, Flight prices sheet. Rates: <a href="https://nationalbank.kz/rss/rates_all.xml">NBK</a>, 16 Oct 2026.</p>
+</div>
+</body>
+</html>
